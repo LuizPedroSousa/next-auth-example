@@ -1,36 +1,43 @@
 /* eslint-disable @typescript-eslint/no-extra-semi */
 import { VercelRequest, VercelResponse } from '@vercel/node'
 import axios from 'axios'
-import { verifyIfTokenIsFormated } from './jwt'
+import { verifyIfTokenIsFormated } from '../../jwt'
 
-interface ResolveProps {
-  _id: number
-  name: string
-  avatar: string
+export interface WithGithubRequest extends VercelRequest {
+  decoded: GetUserResolveProps
 }
 
 interface VerifyGithubTokenProps {
   token: string
 }
 
+interface GetUserResolveProps {
+  _id: number
+  name: string
+  avatar: string
+}
+
 interface GetUserProps {
   authorization: string
 }
-export default (req: VercelRequest, res: VercelResponse) => {
-  return new Promise<ResolveProps>((resolve, reject) => {
-    const {
-      headers: { authorization }
-    } = req
 
-    Promise.resolve(verifyIfTokenIsFormated({ authorization }))
-      .then(token => verifyGithubToken(token))
-      .then(() => getUser({ authorization }))
-      .then(userProps => resolve(userProps))
-      .catch(error => {
-        res.status(400).json({ error })
-        return reject
-      })
-  })
+type WithGithubHandler = (req: WithGithubRequest, res: VercelResponse) => any
+
+export default function withGithub(handler: WithGithubHandler) {
+  return async (req: WithGithubRequest, res: VercelResponse) => {
+    try {
+      const {
+        headers: { authorization }
+      } = req
+      const { token } = await verifyIfTokenIsFormated({ authorization })
+      await verifyGithubToken({ token })
+      const userProps = await getUser({ authorization })
+      req.decoded = userProps
+      return handler(req, res)
+    } catch (error) {
+      return res.status(400).json({ error })
+    }
+  }
 }
 
 const verifyGithubToken = ({ token }: VerifyGithubTokenProps) => {
@@ -54,7 +61,7 @@ const verifyGithubToken = ({ token }: VerifyGithubTokenProps) => {
 }
 
 const getUser = ({ authorization }: GetUserProps) => {
-  return new Promise<ResolveProps>((resolve, reject) => {
+  return new Promise<GetUserResolveProps>((resolve, reject) => {
     axios
       .get('https://api.github.com/user', {
         headers: { authorization }
