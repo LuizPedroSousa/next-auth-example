@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/context/RegisterForm/provider.tsX"  ],
   "exclude": [
     "node_modules"
   ]
