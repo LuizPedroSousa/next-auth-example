@@ -1,20 +1,21 @@
 /* eslint-disable @typescript-eslint/no-extra-semi */
-import { VercelRequest, VercelResponse } from '@vercel/node'
-import { verifyIfTokenIsFormated, verifyJWTSignature } from '../../jwt'
-export interface WithJWTRequest extends VercelRequest {
-  decoded: any
-}
-type WithJWTHandler = (req: WithJWTRequest, res: VercelResponse) => any
+import { Middleware } from '@vercel/node'
+import { Decoded } from 'jsonwebtoken'
+import { checkFormatting, checkSignature } from '../../jwt'
 
-export default function withJWT(handler: WithJWTHandler) {
-  return async (req: WithJWTRequest, res: VercelResponse) => {
+export interface WithJWTRequest<T = {}> {
+  decoded: Decoded<T>
+}
+
+const withJWT: Middleware<WithJWTRequest> = handler => {
+  return async (req, res) => {
     const {
       headers: { authorization }
     } = req
 
     try {
-      const { token } = await verifyIfTokenIsFormated({ authorization })
-      const { decoded } = await verifyJWTSignature({ token })
+      const { token } = checkFormatting({ authorization })
+      const { decoded } = checkSignature({ token })
       req.decoded = decoded
       return handler(req, res)
     } catch (error) {
@@ -22,3 +23,5 @@ export default function withJWT(handler: WithJWTHandler) {
     }
   }
 }
+
+export default withJWT

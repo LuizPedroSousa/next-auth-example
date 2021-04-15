@@ -1,23 +1,30 @@
 /* eslint-disable indent */
-import jwt from 'jsonwebtoken'
+import jwt, { Decoded } from 'jsonwebtoken'
 
 interface GenerateTokenProps {
   payload: any
   customExpires?: number | string
 }
-interface VerifyTokenProps {
+
+interface CheckSignature {
   token: string
 }
 
-interface VerifyJWTSignatureResolveProps {
-  decoded: any
+interface CheckSignatureResolveProps<T> {
+  decoded: Decoded<T>
 }
 
-interface VerifyIfTokenIsFormatedProps {
+interface CheckFormattingProps {
   authorization: string | undefined
 }
 
-interface VerifyIfTokenIsFormatedResolveProps {
+interface CheckFormattingResolveProps {
+  token: string
+}
+
+interface GetTokenPartsResolveProps {
+  parts: string[]
+  scheme: string
   token: string
 }
 
@@ -28,45 +35,49 @@ export const generateJWT = ({ payload, customExpires }: GenerateTokenProps) => {
   })
 }
 
-export const verifyJWTSignature = ({ token }: VerifyTokenProps) => {
-  return new Promise<VerifyJWTSignatureResolveProps>((resolve, reject) => {
-    jwt.verify(token, getRSAKey('Public'), (err: any, decoded: any) => {
+export const checkSignature = <T>({
+  token
+}: CheckSignature): CheckSignatureResolveProps<T> => {
+  const { decoded }: any = jwt.verify(
+    token,
+    getRSAKey('Public'),
+    (err: any, decoded: Decoded<T>) => {
       if (err) {
-        return reject('Invalid token')
+        throw 'Invalid token'
       }
-      return resolve({ decoded })
-    })
-  })
+      return { decoded }
+    }
+  )
+  return { decoded }
 }
 
-export const verifyIfTokenIsFormated = ({
+export const checkFormatting = ({
   authorization
-}: VerifyIfTokenIsFormatedProps) => {
-  return new Promise<VerifyIfTokenIsFormatedResolveProps>((resolve, reject) => {
-    if (!authorization) {
-      return reject('No token provided')
-    }
+}: CheckFormattingProps): CheckFormattingResolveProps => {
+  if (!authorization) {
+    throw 'No token provided'
+  }
+  const { parts, scheme, token } = getTokenParts(authorization)
 
-    const { parts, scheme, token } = getTokenParts(authorization)
-
-    if (parts.length !== 2) {
-      return reject('Token error')
-    }
-    if (!/^Bearer$/i.test(scheme)) {
-      return reject('Token malformated')
-    }
-    return resolve({ token })
-  })
+  if (parts.length !== 2) {
+    throw 'Token error'
+  }
+  if (!/^Bearer$/i.test(scheme)) {
+    throw 'Token malformated'
+  }
+  return { token }
 }
 
-export const getTokenParts = (authorization: string) => {
+export const getTokenParts = (
+  authorization: string
+): GetTokenPartsResolveProps => {
   const parts = authorization.split(' ')
   const [scheme, token] = parts
 
   return { parts, scheme, token }
 }
 
-const getRSAKey = (howKey: 'Public' | 'Private') => {
+const getRSAKey = (howKey: 'Public' | 'Private'): string => {
   const formatRsaKey = (keyToFormat: string | undefined) => {
     return JSON.parse(JSON.stringify(keyToFormat?.replace(/\\n/g, '\n')))
   }

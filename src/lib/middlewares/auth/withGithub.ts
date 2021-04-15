@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-extra-semi */
-import { VercelRequest, VercelResponse } from '@vercel/node'
+import { Middleware } from '@vercel/node'
 import axios from 'axios'
-import { verifyIfTokenIsFormated } from '../../jwt'
+import { checkFormatting } from '../../jwt'
 
-export interface WithGithubRequest extends VercelRequest {
+export interface WithGithubRequest {
   decoded: GetUserResolveProps
 }
 
-interface VerifyGithubTokenProps {
+interface CheckGithubTokenProps {
   token: string
 }
 
@@ -21,16 +21,14 @@ interface GetUserProps {
   authorization: string
 }
 
-type WithGithubHandler = (req: WithGithubRequest, res: VercelResponse) => any
-
-export default function withGithub(handler: WithGithubHandler) {
-  return async (req: WithGithubRequest, res: VercelResponse) => {
+const withGithub: Middleware<WithGithubRequest> = handler => {
+  return async (req, res) => {
     try {
       const {
         headers: { authorization }
       } = req
-      const { token } = await verifyIfTokenIsFormated({ authorization })
-      await verifyGithubToken({ token })
+      const { token } = checkFormatting({ authorization })
+      await checkGithubToken({ token })
       const userProps = await getUser({ authorization })
       req.decoded = userProps
       return handler(req, res)
@@ -40,35 +38,38 @@ export default function withGithub(handler: WithGithubHandler) {
   }
 }
 
-const verifyGithubToken = ({ token }: VerifyGithubTokenProps) => {
-  return new Promise<void>((resolve, reject) => {
-    axios
-      .post(
-        `https://api.github.com/applications/${process.env.GITHUB_CLIENT_ID}/token`,
-        {
-          access_token: token
-        },
-        {
-          auth: {
-            username: process.env.GITHUB_CLIENT_ID,
-            password: process.env.GITHUB_CLIENT_SECRET
-          }
+const checkGithubToken = async ({
+  token
+}: CheckGithubTokenProps): Promise<void> => {
+  try {
+    return await axios.post(
+      `https://api.github.com/applications/${process.env.GITHUB_CLIENT_ID}/token`,
+      {
+        access_token: token
+      },
+      {
+        auth: {
+          username: process.env.GITHUB_CLIENT_ID,
+          password: process.env.GITHUB_CLIENT_SECRET
         }
-      )
-      .then(() => resolve())
-      .catch(() => reject('Bad token request'))
-  })
+      }
+    )
+  } catch {
+    throw 'Bad token request'
+  }
 }
 
-const getUser = ({ authorization }: GetUserProps) => {
-  return new Promise<GetUserResolveProps>((resolve, reject) => {
-    axios
-      .get('https://api.github.com/user', {
-        headers: { authorization }
-      })
-      .then(({ data }) =>
-        resolve({ _id: data.id, name: data.name, avatar: data.avatar_url })
-      )
-      .catch(() => reject('Failed to get github user'))
-  })
+const getUser = async ({
+  authorization
+}: GetUserProps): Promise<GetUserResolveProps> => {
+  try {
+    const { data } = await axios.get('https://api.github.com/user', {
+      headers: { authorization }
+    })
+    return { _id: data.id, name: data.name, avatar: data.avatar_url }
+  } catch {
+    throw 'Failed to get github user'
+  }
 }
+
+export default withGithub
