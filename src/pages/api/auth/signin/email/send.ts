@@ -1,40 +1,40 @@
-import { VercelRequest, VercelResponse } from '@vercel/node'
+import { Handler } from '@vercel/node'
 import { generateJWT } from '../../../../../lib/jwt'
-import ConnectToDatabase, { insertOne } from '../../../../../lib/mongodb'
 import generatePin from '../../../../../utils/generatePin'
-import { v4 as uuid } from 'uuid'
 import sendMail from '../../../../../lib/nodemailer'
 import moment from 'moment'
 import * as Yup from 'yup'
-export default async (req: VercelRequest, res: VercelResponse) => {
+import connectDb from '../../../../../lib/middlewares/connectDb'
+import User, { UserProps } from '../../../../../../models/User'
+import TemporaryToken, {
+  TemporaryTokenProps
+} from '../../../../../../models/TemporaryToken'
+
+const handler: Handler = async (req, res) => {
   const {
     body: { email }
   } = req
-  const db = await ConnectToDatabase(process.env.MONGODB_URI)
-  const userCollection = db.collection('users')
-  const temporaryTokensCollection = db.collection('temporary_tokens')
-
   const schema = Yup.object().shape({
     email: Yup.string().email().required()
   })
+
   try {
     await schema.validate({ email }, { abortEarly: false })
-    const user = await userCollection.findOne({ email })
+    const user: UserProps = await User.findOne({ email })
     if (!user) {
       return res.status(400).json({
         error: 'User not exists'
       })
     }
 
-    const pin = generatePin()
-    const { _id } = await insertOne(temporaryTokensCollection, {
-      _id: uuid(),
+    const pin: string = generatePin()
+    const { _id }: TemporaryTokenProps = await TemporaryToken.create({
       token: generateJWT({
         payload: { pin, _id: String(user._id) },
         customExpires: 60 * 10
-      }),
-      createdAt: new Date()
+      })
     })
+
     await sendMail({
       from: process.env.NODEMAILER_AUTH_USER,
       to: email,
@@ -57,5 +57,9 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         fields: err.errors
       })
     }
+    console.log(err)
+    return res.status(500).json({ error: 'Internal server error' })
   }
 }
+
+export default connectDb(handler)

@@ -1,29 +1,25 @@
-import { VercelRequest, VercelResponse } from '@vercel/node'
+import { Handler } from '@vercel/node'
 import * as Yup from 'yup'
-import ConnectToDatabase, { insertOne } from '../../../lib/mongodb'
-import { v4 as uuid } from 'uuid'
-export default async (req: VercelRequest, res: VercelResponse) => {
+import connectDb from '../../../lib/middlewares/connectDb'
+import User, { UserProps } from '../../../../models/User'
+
+const handler: Handler = async (req, res) => {
   const {
     body: { name, surname, avatar, email }
   } = req
 
-  const db = await ConnectToDatabase(process.env.MONGODB_URI)
-  const userCollection = db.collection('users')
-
-  if (await userCollection.findOne({ email })) {
+  if (await User.findOne({ email })) {
     return res.status(400).json({
       error: 'User already exists'
     })
   }
 
   const data = {
-    _id: uuid(),
     name,
     avatar: avatar || '/icons/default-avatar.svg',
     surname,
     email,
-    isLoggedWith: 'Email',
-    insertedAt: new Date()
+    isLoggedWith: 'Email'
   }
 
   const schema = Yup.object({
@@ -35,8 +31,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
   try {
     await schema.validate(data, { abortEarly: false })
-    await userCollection.createIndex({ email: 1 }, { unique: true })
-    const user = await insertOne(userCollection, data)
+    const user: UserProps = await User.create(data)
 
     return res.status(201).json({
       ok: 'User created with successfully',
@@ -54,3 +49,5 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     })
   }
 }
+
+export default connectDb(handler)

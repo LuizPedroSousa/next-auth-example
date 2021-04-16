@@ -1,20 +1,18 @@
-import { VercelResponse } from '@vercel/node'
+import { Handler } from '@vercel/node'
 import { generateJWT } from '../../../../lib/jwt'
-import ConnectToDatabase, { insertOne } from '../../../../lib/mongodb'
 import * as Yup from 'yup'
 import withGithub, {
   WithGithubRequest
 } from '../../../../lib/middlewares/auth/withGithub'
+import connectDb from '../../../../lib/middlewares/connectDb'
+import User, { UserProps } from '../../../../../models/User'
 
-const handler = async (req: WithGithubRequest, res: VercelResponse) => {
+const handler: Handler<WithGithubRequest> = async (req, res) => {
   const {
     decoded: { _id, avatar, name }
   } = req
 
-  const db = await ConnectToDatabase(process.env.MONGODB_URI)
-  const collection = db.collection('users')
-
-  let user = await collection.findOne({ _id })
+  let user: UserProps = await User.findOne({ _id })
   let statusCode = 200
   if (!user) {
     const data = {
@@ -37,7 +35,7 @@ const handler = async (req: WithGithubRequest, res: VercelResponse) => {
     })
     try {
       await schema.validate(data, { abortEarly: false })
-      user = await insertOne(collection, data)
+      user = await User.create(data)
       statusCode = 201
     } catch (err) {
       if (err.errors) {
@@ -57,4 +55,4 @@ const handler = async (req: WithGithubRequest, res: VercelResponse) => {
   })
 }
 
-export default withGithub(handler)
+export default withGithub(connectDb(handler))

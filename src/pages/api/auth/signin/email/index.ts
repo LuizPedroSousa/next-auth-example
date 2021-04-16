@@ -1,19 +1,30 @@
-import { VercelResponse } from '@vercel/node'
-import { generateJWT, verifyJWTSignature } from '../../../../../lib/jwt'
+import { Handler } from '@vercel/node'
+import TemporaryToken, {
+  TemporaryTokenProps
+} from '../../../../../../models/TemporaryToken'
+import User, { UserProps } from '../../../../../../models/User'
+import { generateJWT, checkSignature } from '../../../../../lib/jwt'
 import withJWT, {
   WithJWTRequest
 } from '../../../../../lib/middlewares/auth/withJwt'
-import ConnectToDatabase from '../../../../../lib/mongodb'
-const handler = async (req: WithJWTRequest, res: VercelResponse) => {
+import connectDb from '../../../../../lib/middlewares/connectDb'
+
+interface EmailDecoded {
+  pin: string
+}
+
+interface DbDecoded extends EmailDecoded {
+  _id: string
+}
+
+const handler: Handler<WithJWTRequest<EmailDecoded>> = async (req, res) => {
   const {
     body: { uuid },
     decoded: { pin: emailPin, exp: emailExpiration }
   } = req
-  const db = await ConnectToDatabase(process.env.MONGODB_URI)
-  const temporaryTokensCollection = db.collection('temporary_tokens')
-  const userCollection = db.collection('users')
-
-  const temporaryToken = await temporaryTokensCollection.findOne({ _id: uuid })
+  const temporaryToken: TemporaryTokenProps = await TemporaryToken.findOne({
+    _id: uuid
+  })
 
   if (!temporaryToken) {
     return res.status(400).json({
@@ -23,24 +34,23 @@ const handler = async (req: WithJWTRequest, res: VercelResponse) => {
 
   const {
     decoded: { pin: dbPin, exp: dbExpiration, _id }
-  } = await verifyJWTSignature({ token: temporaryToken.token })
-
+  } = checkSignature<DbDecoded>({ token: temporaryToken.token })
   if (emailPin !== dbPin) {
-    await temporaryTokensCollection.deleteOne({ _id: uuid })
+    await TemporaryToken.deleteOne({ _id: uuid })
     return res.status(400).json({
       error: 'Pin is look different'
     })
   }
 
   if (emailExpiration !== dbExpiration) {
-    await temporaryTokensCollection.deleteOne({ _id: uuid })
+    await TemporaryToken.deleteOne({ _id: uuid })
     return res.status(400).json({
       error: 'expiration time is look different'
     })
   }
+  await TemporaryToken.deleteOne({ _id: uuid })
 
-  await temporaryTokensCollection.deleteOne({ _id: uuid })
-  const user = await userCollection.findOne({ _id })
+  const user: UserProps = await User.findOne({ _id })
   return res.status(200).json({
     ok: 'User logged with successfully',
     user,
@@ -48,4 +58,4 @@ const handler = async (req: WithJWTRequest, res: VercelResponse) => {
   })
 }
 
-export default withJWT(handler)
+export default withJWT(connectDb(handler))
