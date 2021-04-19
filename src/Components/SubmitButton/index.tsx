@@ -17,7 +17,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
       marginTop="6"
       fontSize="2xl"
       w="100%"
-      p="7"
+      p={7}
       size="lg"
       bg={hasSubmit === false ? 'red.400' : 'blue.400'}
       _hover={{ bg: hasSubmit === false ? 'red.600' : 'blue.600' }}
@@ -31,11 +31,12 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
           position="absolute"
           right="6"
           size="8"
+          trackColor="inherit"
           thickness="8"
         />
       )}
       {hasSubmit === false && (
-        <Center fontSize="2xl" color="red.500" right="6" position="absolute">
+        <Center fontSize="2xl" color="red.500" right={6} position="absolute">
           <Icon as={BiErrorAlt} />
         </Center>
       )}

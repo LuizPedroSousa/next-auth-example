@@ -5,7 +5,7 @@ import { CircularProgress } from '@chakra-ui/progress'
 import { AiFillGithub } from 'react-icons/ai'
 import { SlideFade } from '@chakra-ui/transition'
 import { useAnimation } from 'framer-motion'
-import MotionCenter from '../../Motion/MotionCenter'
+import { MotionCenter } from '../../Motion'
 
 const GithubLoading: React.FC = () => {
   const githubAnimation = useAnimation()
@@ -48,11 +48,18 @@ const GithubLoading: React.FC = () => {
         >
           <Icon as={AiFillGithub} />
         </MotionCenter>
-        <VStack flexDir={['column', 'row']} spacing={[4, 0]}>
-          <Heading mr={[0, 4]} fontSize={['xl', '4xl']}>
+        <VStack flexDir={{ base: 'column', lg: 'row' }} spacing={[4, 0]}>
+          <Heading
+            mr={[0, 4]}
+            fontSize={{ base: 'xl', sm: '2xl', md: '3xl', lg: '4xl' }}
+          >
             Carregando informações...
           </Heading>
-          <CircularProgress isIndeterminate color="blue.600" />
+          <CircularProgress
+            trackColor="inherit"
+            isIndeterminate
+            color="blue.600"
+          />
         </VStack>
       </Flex>
     </SlideFade>

@@ -16,7 +16,7 @@ const Login: React.FC = () => {
   const {
     user: { email }
   } = useContext(UserContext)
-  const [isLargerThan1120] = useMediaQuery('(min-width: 1120px)')
+  const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)')
   useEffect(() => {
     window.addEventListener('beforeunload', () =>
       Cookies.remove('viewedRegisterPage')
@@ -31,8 +31,8 @@ const Login: React.FC = () => {
       <Title />
       <Form onOpen={onOpen} />
       <ModalEmailConfirmation email={email} isOpen={isOpen} onClose={onClose} />
-      {!isLargerThan1120 && (
-        <Box zIndex={2} w="100%" gridArea="hero" as="footer">
+      {!isLargerThan1280 && (
+        <Box zIndex={2} w={['100%', '80%', '60%']} gridArea="hero" as="footer">
           <Center as="figure">
             <HeroImg />
           </Center>
@@ -57,7 +57,7 @@ export const getServerSideProps: GetServerSideProps = withSession(
     if (req.session.get('token')) {
       return {
         redirect: {
-          destination: '/',
+          destination: '/dashboard',
           permanent: false
         }
       }

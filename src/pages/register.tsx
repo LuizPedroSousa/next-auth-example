@@ -11,7 +11,7 @@ import ModalAvatarEdit from '../Components/perPage/Register/ModalAvatarEdit'
 import Form from '../Components/perPage/Register/Form'
 import RegisterFormProvider from '../context/RegisterForm/provider'
 const Register: React.FC = () => {
-  const [isLargerThan1120] = useMediaQuery('(min-width: 1120px)')
+  const [isLargerThan992] = useMediaQuery('(min-width: 992px)')
   useEffect(() => {
     Cookies.set('viewedRegisterPage', 'true')
   }, [])
@@ -27,8 +27,13 @@ const Register: React.FC = () => {
         <ModalAvatarEdit />
         <Form />
       </RegisterFormProvider>
-      {!isLargerThan1120 && (
-        <Box gridArea="hero" zIndex={2} as="footer" w="100%">
+      {!isLargerThan992 && (
+        <Box
+          gridArea="hero"
+          zIndex={2}
+          as="footer"
+          w={['100%', '80%', '60%', '100%']}
+        >
           <HeroImg />
         </Box>
       )}

@@ -12,8 +12,10 @@ import { AiOutlineCheck, AiTwotoneMail } from 'react-icons/ai'
 import { BiErrorAlt } from 'react-icons/bi'
 import { statusType } from '../../../hooks/useUser'
 import { useAnimation } from 'framer-motion'
-import MotionHeading from '../../Motion/MotionHeading'
-import MotionCenter from '../../Motion/MotionCenter'
+import {
+  MotionHeading,
+  MotionCenter
+} from '../../Motion'
 
 interface EmailLoadingProps {
   status: statusType
@@ -165,7 +167,7 @@ const EmailLoading: React.FC<EmailLoadingProps> = ({ status }) => {
 
         {(() => {
           if (status === 'waiting') {
-            return <CircularProgress mt={8} isIndeterminate color="blue.600" />
+            return <CircularProgress trackColor="inherit" mt={8} isIndeterminate color="blue.600" />
           }
           return (
             <MotionCenter

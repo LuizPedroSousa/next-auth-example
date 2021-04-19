@@ -3,21 +3,25 @@ import { Grid, GridProps } from '@chakra-ui/react'
 const Container: React.FC<GridProps> = ({ children }) => {
   return (
     <Grid
-      h={['100%', '100vh']}
+      h={{ base: '100%', lg: '100vh' }}
       w="100%"
-      gridTemplateRows={[
-        '2rem max-content max-content max-content 2rem',
-        '1fr max-content 1fr'
-      ]}
-      gridTemplateColumns={['1fr', '1fr max-content 6rem max-content 1fr']}
-      gridTemplateAreas={[
-        "'.' 'title' 'form' 'hero' '.'",
-        "'. . . . .' '. form . title .' '. . . . .'"
-      ]}
-      px={[4, 0]}
-      alignItems={['center', 'flex-start']}
-      columnGap={[6, 0]}
-      rowGap={[6, 0]}
+      gridTemplateRows={{
+        base: '2rem repeat(3, max-content) 2rem',
+        lg: '1fr max-content 1fr'
+      }}
+      gridTemplateColumns={{
+        base: '1fr',
+        lg: '1fr max-content 6rem max-content 1fr'
+      }}
+      gridTemplateAreas={{
+        base: "'.' 'title' 'form' 'hero' '.'",
+        lg: "'. . . . .' '. form . title .' '. . . . .'"
+      }}
+      justifyItems="center"
+      px={{ base: 4, sm: 6, lg: 0 }}
+      alignItems={{ base: 'center', lg: 'flex-start' }}
+      columnGap={{ base: 6, lg: 0 }}
+      rowGap={{ base: 5, lg: 0 }}
     >
       {children}
     </Grid>

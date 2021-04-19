@@ -1,17 +1,13 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react'
 import {
-  HTMLMotionProps,
-  motion,
   useAnimation,
   useViewportScroll
 } from 'framer-motion'
-import { chakra, HTMLChakraProps } from '@chakra-ui/system'
 import Cookies from 'js-cookie'
 import { useMediaQuery } from '@chakra-ui/media-query'
-type Merge<P, T> = Omit<P, keyof T> & T
-type MotionBoxProps = Merge<HTMLChakraProps<'div'>, HTMLMotionProps<'div'>>
-const MotionBox: React.FC<MotionBoxProps> = motion(chakra.div)
+import { MotionBox } from '../Motion'
+
 interface MotionAuthBackgroundProps {
   hasActivePage: 'Login' | 'Register'
 }

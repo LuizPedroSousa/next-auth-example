@@ -3,7 +3,7 @@ import { Box, Center, Flex, Heading, useMediaQuery } from '@chakra-ui/react'
 import HeroImg from '../../../../../public/images/hero-login.svg'
 import LogoImg from '../../../../../public/images/logo.svg'
 const Title: React.FC = () => {
-  const [isLargerThan1120] = useMediaQuery('(min-width: 1120px)')
+  const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)')
   return (
     <Flex
       zIndex={2}
@@ -11,20 +11,28 @@ const Title: React.FC = () => {
       gridArea="title"
       h="100%"
       w="100%"
-      justify="space-evenly"
+      justify="center"
       align="center"
       flexDir="column"
     >
       <Flex
         w="100%"
-        direction={['column', 'row-reverse']}
-        align="center"
+        direction={{
+          base: 'column',
+          md: 'row-reverse',
+          lg: 'column',
+          xl: 'row-reverse'
+        }}
+        align={{ base: 'center', lg: 'flex-start', xl: 'center' }}
         as="figure"
-        justify={['center', 'space-between']}
-        mb={[0, 6]}
+        justify={{ base: 'center', md: 'space-around', lg: 'space-between' }}
+        mb={{ base: 0, md: 6, lg: 0, xl: 6 }}
       >
         <LogoImg />
-        <Box mt={[3, 0]}>
+        <Box
+          ml={{ base: 0, lg: 4, xl: 0 }}
+          mt={{ base: 3, md: 0, lg: 8, xl: 0 }}
+        >
           <Heading as="figcaption" fontSize="4xl">
             Para começar
             <br />
@@ -34,7 +42,7 @@ const Title: React.FC = () => {
           </Heading>
         </Box>
       </Flex>
-      {isLargerThan1120 && (
+      {isLargerThan1280 && (
         <Center w="70%" as="span">
           <HeroImg />
         </Center>

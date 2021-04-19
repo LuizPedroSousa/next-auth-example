@@ -32,8 +32,8 @@ const Form: React.FC = () => {
       onSubmit={handleSubmit as any}
       align="flex-start"
       h={['lg', 'xl']}
-      py={[12, 14]}
-      px={[6, 10]}
+      py={{ base: 12, lg: 14 }}
+      px={{ base: 6, sm: 8, lg: 10 }}
       justify="space-between"
       gridArea="form"
     >
@@ -44,8 +44,8 @@ const Form: React.FC = () => {
           bg="inherit"
           p={0}
           borderRadius="full"
-          w={14}
-          h={14}
+          w={{ base: 14, sm: 16 }}
+          h={{ base: 14, sm: 16 }}
         >
           <Avatar
             bgColor="green.500"

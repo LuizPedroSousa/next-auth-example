@@ -12,7 +12,7 @@ const Form: React.FC<FlexProps> = ({ children, ...props }) => {
       borderRadius={props.borderRadius || 'lg'}
       justify={props.justify || 'center'}
       align={props.align || 'center'}
-      px={props.px || ['4', '16']}
+      px={props.px || [4, 8, 16]}
     >
       {children}
     </Flex>

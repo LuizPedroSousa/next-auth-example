@@ -14,14 +14,14 @@ import HeroImg from '../../../../../public/images/hero-register.svg'
 import NextLink from 'next/link'
 
 const Title: React.FC = () => {
-  const [isLargerThan1120] = useMediaQuery('(min-width: 1120px)')
+  const [isLargerThan992] = useMediaQuery('(min-width: 992px)')
 
   return (
     <Flex
       zIndex={2}
       as="main"
-      justify={['center', 'space-between']}
-      align={['center', 'flex-start']}
+      justify={{ base: 'center', lg: 'space-between' }}
+      align={{ base: 'center', lg: 'flex-start' }}
       direction="column"
       h={'100%'}
       gridArea="title"
@@ -31,7 +31,7 @@ const Title: React.FC = () => {
         <Box mb={4} mt={6}>
           <Heading
             as="figcaption"
-            textAlign={['center', 'left']}
+            textAlign={{ base: 'center', lg: 'left' }}
             fontSize="4xl"
           >
             Crie sua conta
@@ -52,7 +52,7 @@ const Title: React.FC = () => {
           Voltar para login
         </ChakraLink>
       </NextLink>
-      {isLargerThan1120 && (
+      {isLargerThan992 && (
         <Center w="100%" as="span">
           <HeroImg />
         </Center>

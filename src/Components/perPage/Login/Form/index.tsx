@@ -91,10 +91,10 @@ const Form: React.FC<FormProps> = ({ onOpen }) => {
 
   return (
     <ChakraForm
-      zIndex="2"
+      zIndex={2}
       gridArea="form"
       onSubmit={handleSubmit as any}
-      py={[8, 20]}
+      py={{ base: 8, lg: 20 }}
     >
       <Flex flexDir="column" w="100%">
         <Input
@@ -146,6 +146,7 @@ const Form: React.FC<FormProps> = ({ onOpen }) => {
           {hasSignWithGithub && (
             <CircularProgress
               isIndeterminate
+              trackColor="inherit"
               color="gray.600"
               position="absolute"
               right={[4, 4]}
