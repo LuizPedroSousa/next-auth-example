@@ -3,12 +3,12 @@ import Head from 'next/head'
 import HeroImg from '../../public/images/hero-register.svg'
 import { Box, useMediaQuery } from '@chakra-ui/react'
 
-import MotionBackgroundAnim from '../Components/MotionAuthBackground'
+import MotionBackgroundAnim from '../components/MotionAuthBackground'
 import Cookies from 'js-cookie'
-import Title from '../Components/perPage/Register/Title'
-import Container from '../Components/perPage/Register/Container'
-import ModalAvatarEdit from '../Components/perPage/Register/ModalAvatarEdit'
-import Form from '../Components/perPage/Register/Form'
+import Title from '../components/perPage/Register/Title'
+import Container from '../components/perPage/Register/Container'
+import ModalAvatarEdit from '../components/perPage/Register/ModalAvatarEdit'
+import Form from '../components/perPage/Register/Form'
 import RegisterFormProvider from '../context/RegisterForm/provider'
 const Register: React.FC = () => {
   const [isLargerThan992] = useMediaQuery('(min-width: 992px)')

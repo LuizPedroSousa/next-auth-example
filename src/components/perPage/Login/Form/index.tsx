@@ -13,7 +13,7 @@ import {
   Link as ChakraLink,
   useToast
 } from '@chakra-ui/react'
-import ChakraForm from '../../../../Components/Form'
+import ChakraForm from '../../../Form'
 import { AiOutlineMail } from 'react-icons/ai'
 import { useRouter } from 'next/router'
 import { FaGithub } from 'react-icons/fa'

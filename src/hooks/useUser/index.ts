@@ -2,17 +2,22 @@ import { useToast } from '@chakra-ui/toast'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 import UserContext, { userType } from '../../context/User/context'
-import useFetcher from '../useFetcher'
+import { useFetcher } from '../useFetcher'
 
 interface useUserProps {
-  token: string
+  token?: string
 }
 
 export type statusType = 'success' | 'error' | 'waiting'
-export default function useUser({ token }: useUserProps) {
+function useUser({ token }: useUserProps) {
   const Router = useRouter()
   const toast = useToast()
   const { user, setUser } = useContext(UserContext)
+
+  if (!token) {
+    return { user, setUser }
+  }
+
   const [status, setStatus] = useState<statusType>('waiting')
   const { data, error } = useFetcher<{ user: userType; token: string }>(
     '/api/user/show',
@@ -28,6 +33,7 @@ export default function useUser({ token }: useUserProps) {
       return setUser(data.user)
     }
   }, [data])
+
   useEffect(() => {
     if (error) {
       setStatus('error')
@@ -45,3 +51,5 @@ export default function useUser({ token }: useUserProps) {
 
   return { user, status }
 }
+
+export { useUser }

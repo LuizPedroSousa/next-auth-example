@@ -7,7 +7,7 @@ const Title: React.FC = () => {
   return (
     <Flex
       zIndex={2}
-      as="main"
+      as="section"
       gridArea="title"
       h="100%"
       w="100%"

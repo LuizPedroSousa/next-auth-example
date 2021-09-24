@@ -21,23 +21,6 @@ interface GetUserProps {
   authorization: string
 }
 
-const withGithub: Middleware<WithGithubRequest> = handler => {
-  return async (req, res) => {
-    try {
-      const {
-        headers: { authorization }
-      } = req
-      const { token } = checkFormatting({ authorization })
-      await checkGithubToken({ token })
-      const userProps = await getUser({ authorization })
-      req.decoded = userProps
-      return handler(req, res)
-    } catch (error) {
-      return res.status(400).json({ error })
-    }
-  }
-}
-
 const checkGithubToken = async ({
   token
 }: CheckGithubTokenProps): Promise<void> => {
@@ -71,5 +54,21 @@ const getUser = async ({
     throw 'Failed to get github user'
   }
 }
+const withGithub: Middleware<WithGithubRequest> = handler => {
+  return async (req, res) => {
+    try {
+      const {
+        headers: { authorization }
+      } = req
+      const { token } = checkFormatting({ authorization })
+      await checkGithubToken({ token })
+      const userProps = await getUser({ authorization })
+      req.decoded = userProps
+      return handler(req, res)
+    } catch (error) {
+      return res.status(400).json({ error })
+    }
+  }
+}
 
-export default withGithub
+export { withGithub }

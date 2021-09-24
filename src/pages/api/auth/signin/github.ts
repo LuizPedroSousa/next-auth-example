@@ -1,10 +1,8 @@
 import { Handler } from '@vercel/node'
-import { generateJWT } from '../../../../lib/jwt'
+import { generateJWT } from 'lib/jwt'
 import * as Yup from 'yup'
-import withGithub, {
-  WithGithubRequest
-} from '../../../../lib/middlewares/auth/withGithub'
-import connectDb from '../../../../lib/middlewares/connectDb'
+import { withGithub, WithGithubRequest } from 'lib/middlewares/auth/withGithub'
+import connectDb from 'lib/middlewares/connectDb'
 import User, { UserProps } from '../../../../../models/User'
 
 const handler: Handler<WithGithubRequest> = async (req, res) => {

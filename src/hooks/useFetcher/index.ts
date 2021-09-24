@@ -1,7 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import useSWR from 'swr'
 
-export default function useFetcher<Data = any>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function useFetcher<Data = any>(
   url: string,
   requestConfig?: AxiosRequestConfig
 ) {
@@ -12,3 +13,5 @@ export default function useFetcher<Data = any>(
 
   return { data, error }
 }
+
+export { useFetcher }

@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 import UserContext from '../../context/User/context'
 import { statusType } from '../useUser'
+
 interface UseAuthProps {
   provider: 'github' | 'email'
   uuid?: string
@@ -15,11 +16,7 @@ export default function UseAuth({ provider, token, uuid }: UseAuthProps) {
   const toast = useToast()
   const Router = useRouter()
 
-  useEffect(() => {
-    trySignin()
-  }, [])
-
-  const trySignin = async () => {
+  const trySignIn = async () => {
     try {
       const { data } = await axios.post(
         `/api/auth/signin/${provider}`,
@@ -45,5 +42,10 @@ export default function UseAuth({ provider, token, uuid }: UseAuthProps) {
       return Router.push('/login')
     }
   }
+
+  useEffect(() => {
+    trySignIn()
+  }, [])
+
   return { status }
 }

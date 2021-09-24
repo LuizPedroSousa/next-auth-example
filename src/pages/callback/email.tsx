@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Flex, useToast } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
-import EmailLoading from '../../Components/Loadings/Email'
+import EmailLoading from '../../components/Loadings/Email'
 import Head from 'next/head'
 import UseAuth from '../../hooks/useAuth'
 import withSession from '../../lib/middlewares/withSession'
