@@ -1,5 +1,6 @@
 import nodemailer, { SendMailOptions } from 'nodemailer'
 import hbs from 'nodemailer-express-handlebars'
+import SMTPTransport from 'nodemailer/lib/smtp-transport'
 import path from 'path'
 
 interface sendMailProps extends SendMailOptions {
@@ -9,7 +10,7 @@ interface sendMailProps extends SendMailOptions {
 
 export default async function sendMail(
   mailOptions: sendMailProps
-): Promise<void> {
+): Promise<SMTPTransport.SentMessageInfo> {
   return await createTransport().sendMail(mailOptions)
 }
 

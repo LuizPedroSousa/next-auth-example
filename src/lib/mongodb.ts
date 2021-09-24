@@ -1,10 +1,7 @@
 import mongoose from 'mongoose'
+
 export const createConnection = async (uri: string) => {
-  await mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
-  })
+  await mongoose.connect(uri)
 }
 
 export const getConnection = () => {

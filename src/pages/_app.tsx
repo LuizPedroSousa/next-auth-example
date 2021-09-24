@@ -1,8 +1,8 @@
 import React from 'react'
-import { AppProps } from 'next/dist/next-server/lib/router/router'
 import ThemeContainer from '../context/theme/ThemeContainer'
 import { UserProvider } from '../context/User/provider'
-const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+
+function MyApp({ Component, pageProps }) {
   return (
     <ThemeContainer>
       <UserProvider>
