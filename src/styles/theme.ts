@@ -1,11 +1,12 @@
 import { extendTheme } from '@chakra-ui/react'
 
-const CustomTheme = extendTheme({
+export const theme = {
   fonts: {
     body: 'Roboto, Inter, Rajdhani, Poppins, system-ui, sans-serif',
     heading: 'Roboto, Inter, Rajdhani, Poppins, sans-serif',
     mono: 'Menlo, monospace'
   },
+
   fontWeights: {
     normal: 400,
     medium: 600,
@@ -81,5 +82,8 @@ const CustomTheme = extendTheme({
       700: '#342ACE'
     }
   }
-})
+}
+
+const CustomTheme = extendTheme({ ...theme })
+
 export default CustomTheme

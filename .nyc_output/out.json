@@ -1,0 +1,523 @@
+{
+  "/home/luizpedro/Desktop/next-auth-example/src/styles/theme.ts": {
+    "path": "/home/luizpedro/Desktop/next-auth-example/src/styles/theme.ts",
+    "statementMap": {
+      "0": {
+        "start": {
+          "line": 3,
+          "column": 21
+        },
+        "end": {
+          "line": 85,
+          "column": 1
+        }
+      },
+      "1": {
+        "start": {
+          "line": 87,
+          "column": 20
+        },
+        "end": {
+          "line": 87,
+          "column": 45
+        }
+      }
+    },
+    "fnMap": {},
+    "branchMap": {},
+    "s": {
+      "0": 6,
+      "1": 6
+    },
+    "f": {},
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "0ec3aaca07437a60a71dd5e92197e6cf0bd18773"
+  },
+  "/home/luizpedro/Desktop/next-auth-example/src/context/theme/ThemeContainer/index.tsx": {
+    "path": "/home/luizpedro/Desktop/next-auth-example/src/context/theme/ThemeContainer/index.tsx",
+    "statementMap": {
+      "0": {
+        "start": {
+          "line": 7,
+          "column": 33
+        },
+        "end": {
+          "line": 17,
+          "column": 1
+        }
+      },
+      "1": {
+        "start": {
+          "line": 8,
+          "column": 2
+        },
+        "end": {
+          "line": 16,
+          "column": 3
+        }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": {
+            "line": 7,
+            "column": 33
+          },
+          "end": {
+            "line": 7,
+            "column": 34
+          }
+        },
+        "loc": {
+          "start": {
+            "line": 7,
+            "column": 51
+          },
+          "end": {
+            "line": 17,
+            "column": 1
+          }
+        },
+        "line": 7
+      }
+    },
+    "branchMap": {},
+    "s": {
+      "0": 6,
+      "1": 6
+    },
+    "f": {
+      "0": 6
+    },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "f148c0894bef94fc97c73ca6818fcc6b1d7d02fb"
+  },
+  "/home/luizpedro/Desktop/next-auth-example/src/context/User/context.ts": {
+    "path": "/home/luizpedro/Desktop/next-auth-example/src/context/User/context.ts",
+    "statementMap": {
+      "0": {
+        "start": {
+          "line": 15,
+          "column": 20
+        },
+        "end": {
+          "line": 15,
+          "column": 57
+        }
+      }
+    },
+    "fnMap": {},
+    "branchMap": {},
+    "s": {
+      "0": 6
+    },
+    "f": {},
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "ac0fc50c5d1237fd0d8b80813146f42db16e8c1e"
+  },
+  "/home/luizpedro/Desktop/next-auth-example/src/context/User/provider.tsx": {
+    "path": "/home/luizpedro/Desktop/next-auth-example/src/context/User/provider.tsx",
+    "statementMap": {
+      "0": {
+        "start": {
+          "line": 4,
+          "column": 45
+        },
+        "end": {
+          "line": 4,
+          "column": 56
+        }
+      },
+      "1": {
+        "start": {
+          "line": 5,
+          "column": 31
+        },
+        "end": {
+          "line": 8,
+          "column": 1
+        }
+      },
+      "2": {
+        "start": {
+          "line": 6,
+          "column": 26
+        },
+        "end": {
+          "line": 6,
+          "column": 60
+        }
+      },
+      "3": {
+        "start": {
+          "line": 7,
+          "column": 2
+        },
+        "end": {
+          "line": 7,
+          "column": 66
+        }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": {
+            "line": 5,
+            "column": 31
+          },
+          "end": {
+            "line": 5,
+            "column": 32
+          }
+        },
+        "loc": {
+          "start": {
+            "line": 5,
+            "column": 49
+          },
+          "end": {
+            "line": 8,
+            "column": 1
+          }
+        },
+        "line": 5
+      }
+    },
+    "branchMap": {},
+    "s": {
+      "0": 6,
+      "1": 6,
+      "2": 6,
+      "3": 6
+    },
+    "f": {
+      "0": 6
+    },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "890e0050991387654002b71e9a161f0dd8c80674"
+  },
+  "/home/luizpedro/Desktop/next-auth-example/src/pages/_app.tsx": {
+    "path": "/home/luizpedro/Desktop/next-auth-example/src/pages/_app.tsx",
+    "statementMap": {
+      "0": {
+        "start": {
+          "line": 6,
+          "column": 2
+        },
+        "end": {
+          "line": 12,
+          "column": 3
+        }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "MyApp",
+        "decl": {
+          "start": {
+            "line": 5,
+            "column": 9
+          },
+          "end": {
+            "line": 5,
+            "column": 14
+          }
+        },
+        "loc": {
+          "start": {
+            "line": 5,
+            "column": 41
+          },
+          "end": {
+            "line": 13,
+            "column": 1
+          }
+        },
+        "line": 5
+      }
+    },
+    "branchMap": {},
+    "s": {
+      "0": 6
+    },
+    "f": {
+      "0": 6
+    },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "2dcff01ae97bd29fbf0be56c1720ab28d80b8e08"
+  },
+  "/home/luizpedro/Desktop/next-auth-example/src/components/layouts/DefaultLayout/index.tsx": {
+    "path": "/home/luizpedro/Desktop/next-auth-example/src/components/layouts/DefaultLayout/index.tsx",
+    "statementMap": {
+      "0": {
+        "start": {
+          "line": 3,
+          "column": 32
+        },
+        "end": {
+          "line": 9,
+          "column": 1
+        }
+      },
+      "1": {
+        "start": {
+          "line": 4,
+          "column": 2
+        },
+        "end": {
+          "line": 8,
+          "column": 3
+        }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": {
+            "line": 3,
+            "column": 32
+          },
+          "end": {
+            "line": 3,
+            "column": 33
+          }
+        },
+        "loc": {
+          "start": {
+            "line": 3,
+            "column": 50
+          },
+          "end": {
+            "line": 9,
+            "column": 1
+          }
+        },
+        "line": 3
+      }
+    },
+    "branchMap": {},
+    "s": {
+      "0": 6,
+      "1": 6
+    },
+    "f": {
+      "0": 6
+    },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "af045c90e53100c2a9477e0fdd6a7f816f51cf89"
+  },
+  "/home/luizpedro/Desktop/next-auth-example/src/components/Motion/index.tsx": {
+    "path": "/home/luizpedro/Desktop/next-auth-example/src/components/Motion/index.tsx",
+    "statementMap": {
+      "0": {
+        "start": {
+          "line": 27,
+          "column": 59
+        },
+        "end": {
+          "line": 27,
+          "column": 74
+        }
+      },
+      "1": {
+        "start": {
+          "line": 28,
+          "column": 57
+        },
+        "end": {
+          "line": 28,
+          "column": 71
+        }
+      },
+      "2": {
+        "start": {
+          "line": 29,
+          "column": 53
+        },
+        "end": {
+          "line": 29,
+          "column": 65
+        }
+      },
+      "3": {
+        "start": {
+          "line": 30,
+          "column": 51
+        },
+        "end": {
+          "line": 30,
+          "column": 62
+        }
+      },
+      "4": {
+        "start": {
+          "line": 31,
+          "column": 53
+        },
+        "end": {
+          "line": 31,
+          "column": 65
+        }
+      },
+      "5": {
+        "start": {
+          "line": 32,
+          "column": 53
+        },
+        "end": {
+          "line": 32,
+          "column": 65
+        }
+      }
+    },
+    "fnMap": {},
+    "branchMap": {},
+    "s": {
+      "0": 6,
+      "1": 6,
+      "2": 6,
+      "3": 6,
+      "4": 6,
+      "5": 6
+    },
+    "f": {},
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "9ddb33ec0667553c2392ac2cd9331382fe123d66"
+  },
+  "/home/luizpedro/Desktop/next-auth-example/src/components/Seo.tsx": {
+    "path": "/home/luizpedro/Desktop/next-auth-example/src/components/Seo.tsx",
+    "statementMap": {
+      "0": {
+        "start": {
+          "line": 12,
+          "column": 32
+        },
+        "end": {
+          "line": 64,
+          "column": 1
+        }
+      },
+      "1": {
+        "start": {
+          "line": 13,
+          "column": 17
+        },
+        "end": {
+          "line": 13,
+          "column": 28
+        }
+      },
+      "2": {
+        "start": {
+          "line": 14,
+          "column": 2
+        },
+        "end": {
+          "line": 63,
+          "column": 3
+        }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "(anonymous_0)",
+        "decl": {
+          "start": {
+            "line": 12,
+            "column": 32
+          },
+          "end": {
+            "line": 12,
+            "column": 33
+          }
+        },
+        "loc": {
+          "start": {
+            "line": 12,
+            "column": 67
+          },
+          "end": {
+            "line": 64,
+            "column": 1
+          }
+        },
+        "line": 12
+      }
+    },
+    "branchMap": {},
+    "s": {
+      "0": 6,
+      "1": 6,
+      "2": 6
+    },
+    "f": {
+      "0": 6
+    },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "3fb86135275aa3af156625dbf7d5449c5cec6186"
+  },
+  "/home/luizpedro/Desktop/next-auth-example/src/pages/404.tsx": {
+    "path": "/home/luizpedro/Desktop/next-auth-example/src/pages/404.tsx",
+    "statementMap": {
+      "0": {
+        "start": {
+          "line": 10,
+          "column": 2
+        },
+        "end": {
+          "line": 97,
+          "column": 3
+        }
+      }
+    },
+    "fnMap": {
+      "0": {
+        "name": "notFound",
+        "decl": {
+          "start": {
+            "line": 9,
+            "column": 24
+          },
+          "end": {
+            "line": 9,
+            "column": 32
+          }
+        },
+        "loc": {
+          "start": {
+            "line": 9,
+            "column": 35
+          },
+          "end": {
+            "line": 98,
+            "column": 1
+          }
+        },
+        "line": 9
+      }
+    },
+    "branchMap": {},
+    "s": {
+      "0": 6
+    },
+    "f": {
+      "0": 6
+    },
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "6bd2a22f2cffd8ef782de8ead44eedc506393b2d"
+  }
+}
