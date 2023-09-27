@@ -3,5 +3,6 @@
     "Formik",
     "NODEMAILER",
     "vercel"
-  ]
+  ],
+  "nuxt.isNuxtApp": false
 }

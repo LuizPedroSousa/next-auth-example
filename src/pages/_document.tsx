@@ -26,6 +26,11 @@ class MyDocument extends Document<DocumentProps> {
             href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&family=Poppins:wght@600;700&family=Rajdhani:wght@500;700&family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet"
           />
+
+          <script
+            src="https://api.nemu.com.br/accounts-services/dashboards/463/trackings/1/script"
+            crossOrigin="anonymous"
+          ></script>
         </Head>
         <body>
           <Main />
